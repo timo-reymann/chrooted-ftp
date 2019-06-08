@@ -34,6 +34,8 @@ do
   fi
 done < $ROOT_FOLDER/users
 
+/seed-config.sh
+
 echo "Starting vsftpd"
 # Start vsftpd with the configuration
 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

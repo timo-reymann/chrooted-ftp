@@ -14,6 +14,6 @@ RUN apk add --no-cache vsftpd
 COPY scripts/seed-config.sh scripts/entrypoint.sh /
 COPY defaults/users /opt/chrooted-ftp/users
 
-RUN sh seed-config.sh && chmod +x /entrypoint.sh
+RUN chmod +x seed-config.sh && chmod +x /entrypoint.sh
 
 ENTRYPOINT /entrypoint.sh
