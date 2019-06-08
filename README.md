@@ -26,10 +26,18 @@ version: '3.2'
 services:
   ftp:
     image: timoreymann/chrooted-ftp
+    environment:
+      - "BANNER=Welcome to my dockerized FTP!"
+#      - PUBLIC_HOST=192.168.0.1
     ports:
+      # active ftp
       - "21:21"
+
+      # passive ftp ports, may differ if you configured them differently
+      - 10090-10100:10090-10100
     volumes:
       - /var/www/html:/data/foo
+      - ./ftp_users:/opt/chrooted-ftp/users
 ```
 
 
