@@ -10,7 +10,7 @@ EXPOSE 10090-10100
 
 RUN apk add --no-cache vsftpd
 
-COPY seed-config.sh entrypoint.sh /
+COPY scripts/seed-config.sh scripts/entrypoint.sh /
 COPY defaults/users /opt/chrooted-ftp/users
 
 RUN sh seed-config.sh
