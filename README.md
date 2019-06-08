@@ -25,7 +25,7 @@ So you can mount for example a website for a user under `/data/bob` and your hos
 version: '3.2'
 services:
   ftp:
-    image: ftp
+    image: timoreymann/chrooted-ftp
     ports:
       - "21:21"
     volumes:
