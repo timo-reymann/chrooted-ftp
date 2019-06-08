@@ -13,6 +13,7 @@ pasv_enable=Yes
 pasv_max_port=${PASSIVE_MAX_PORT}
 pasv_min_port=${PASSIVE_MIN_PORT}
 pasv_addr_resolve=NO
+pasv_address=${PUBLIC_HOST}
 listen_ipv6=NO
 seccomp_sandbox=NO
 ftpd_banner=${BANNER}

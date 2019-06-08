@@ -62,6 +62,6 @@ To customize the ftp umaks (default 022 => chmod 777) you can use the vnironment
 | Variable          | Function                      |
 | :--               | :---                          |
 | BANNER            | Banner displayed at connect   |
-
+| PUBLIC_HOST       | Public host                   |
 ## Under the hood
 Under the hood the image is based on alpine and vsftpd. So it size and resource usage is really low.
