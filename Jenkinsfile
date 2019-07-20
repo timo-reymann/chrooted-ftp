@@ -1,5 +1,11 @@
 #!groovy
 
 node {
-  runDefaultDockerPipeline currentBuild: currentBuild, imageName: "timoreymann/chrooted-ftp"
+    properties([
+        parameters([
+            gitTagVersionInput()
+        ])
+    ])
+    
+    runDefaultDockerPipeline currentBuild: currentBuild, imageName: "timoreymann/chrooted-ftp"
 }
