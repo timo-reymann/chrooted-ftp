@@ -6,6 +6,6 @@ node {
             gitTagVersionInput()
         ])
     ])
-    
-    runDefaultDockerPipeline currentBuild: currentBuild, imageName: "timoreymann/chrooted-ftp"
+
+    runDefaultDockerPipeline currentBuild: currentBuild, imageName: "timoreymann/chrooted-ftp", tag: params.Version
 }
