@@ -55,6 +55,7 @@ There is also the default user `bob` with password `s3cr3tCand!`. This user is g
 
 ### Passive FTP
 You can configure passive ftp using the following environment variables:
+
 | Variable          | Function                      |
 | :--               | :---                          |
 | PASSIVE_MIN_PORT  | Minimum used passive port     |
@@ -67,6 +68,7 @@ You must take care of opening/mapping the ports via docker to match your docker 
 To customize the ftp umaks (default 022 => chmod 777) you can use the vnironment variable `UMASK`
 
 ### Misc
+
 | Variable          | Function                      |
 | :--               | :---                          |
 | BANNER            | Banner displayed at connect   |
