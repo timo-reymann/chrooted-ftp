@@ -1,6 +1,6 @@
 chrooted-ftp
 ====
-![GitHub Release](https://img.shields.io/github/v/tag/timo-reymann/chrooted-ftp.svg)
+![GitHub Release](https://img.shields.io/github/v/tag/timo-reymann/chrooted-ftp.svg?label=version)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/timoreymann/chrooted-ftp)
 
 A dead simple alpine-based docker container to allow users only access their own home directory.
