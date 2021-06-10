@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: latest, ${{ env.GITHUB_TAG }}
+          tags: timoreymann/${{ env.DOCKER_REPO }}:latest, timoreymann/${{ env.DOCKER_REPO  }}:${{ env.GITHUB_TAG }}
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         env:
