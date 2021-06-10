@@ -1,4 +1,4 @@
-name: Continuous build
+name: Release image on tag
 
 on:
   push:
@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
       - name: Setup environment variables
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
