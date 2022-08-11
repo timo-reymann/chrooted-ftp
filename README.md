@@ -68,7 +68,7 @@ You must take care of opening/mapping the ports via docker to match your docker 
 
 
 ### Umask
-To customize the ftp umaks (default 022 => chmod 777) you can use the vnironment variable `UMASK`
+To customize the ftp umask (default 022 => chmod 777) you can use the environment variable `UMASK`
 
 ### Misc
 
