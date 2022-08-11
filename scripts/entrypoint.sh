@@ -92,8 +92,8 @@ EOF
         local_enable=YES
         local_root=${DATA_FOLDER}/\$USER/data
         local_umask=${UMASK}
-        passwd_chroot_enable=yes
-        pasv_enable=Yes
+        passwd_chroot_enable=YES
+        pasv_enable=YES
         pasv_max_port=${PASSIVE_MAX_PORT}
         pasv_min_port=${PASSIVE_MIN_PORT}
         pasv_addr_resolve=NO
@@ -138,7 +138,7 @@ configure_sftp() {
     HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ed25519_key
     HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_rsa_key
     IgnoreUserKnownHosts    yes
-    LogLevel                DEBUG
+    LogLevel                INFO
     PasswordAuthentication  yes
     PermitEmptyPasswords    no
     PermitTTY               no
@@ -160,4 +160,4 @@ configure_sftp
 log "GENERAL" "Setup completed."
 
 (log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) & \
-(log "SFTP" "Started" && /usr/sbin/sshd -D)
+(log "SFTP" "Started" && /usr/sbin/sshd -D -e)
