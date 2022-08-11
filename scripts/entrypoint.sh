@@ -62,26 +62,6 @@ create_data_folder() {
 # Configure VSFTPD
 configure_vsftpd() {
     VSFTPD_CONFIG_FILE=/etc/vsftpd/vsftpd.conf
-    VSFTPD_CONFIG="$(cat <<EOF
-    allow_writeable_chroot=YES
-    chroot_local_user=YES
-    ftpd_banner=${BANNER}
-    listen_ipv6=NO
-    local_enable=YES
-    local_root=${DATA_FOLDER}/\$USER/data
-    local_umask=${UMASK}
-    passwd_chroot_enable=yes
-    pasv_enable=Yes
-    pasv_max_port=${PASSIVE_MAX_PORT}
-    pasv_min_port=${PASSIVE_MIN_PORT}
-    pasv_addr_resolve=NO
-    pasv_address=${PUBLIC_HOST}
-    seccomp_sandbox=NO
-    user_sub_token=\$USER
-    vsftpd_log_file=$(tty)
-    write_enable=YES
-EOF
-    )"
 
     log "FTP" "Append custom config to vsftpd config"
     cat <<EOF >> $VSFTPD_CONFIG_FILE
