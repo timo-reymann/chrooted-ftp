@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CONFIG_FILE=/etc/vsftpd/vsftpd.conf
-
+VSFTPD_CONFIG_FILE=/etc/vsftpd/vsftpd.conf
 VSFTPD_CONFIG="$(cat <<EOF
 local_enable=YES
 chroot_local_user=YES
@@ -17,20 +16,21 @@ pasv_address=${PUBLIC_HOST}
 listen_ipv6=NO
 seccomp_sandbox=NO
 ftpd_banner=${BANNER}
+vsftpd_log_file=$(tty)
 EOF
 )"
 
 echo ""
 printf "Append custom config to vsftpd config ... "
-echo "$VSFTPD_CONFIG" >> $CONFIG_FILE
+echo "$VSFTPD_CONFIG" >> "$VSFTPD_CONFIG_FILE"
 echo "Done."
 
 printf "Disable anonymous login ... "
-sed -i "s/anonymous_enable=YES/anonymous_enable=NO/" $CONFIG_FILE
+sed -i "s/anonymous_enable=YES/anonymous_enable=NO/" "$VSFTPD_CONFIG_FILE"
 echo "Done."
 
 printf "Remove suffixed whitespace from config ..."
-sed -i 's,\r,,;s, *$,,' $CONFIG_FILE
+sed -i 's,\r,,;s, *$,,' "$VSFTPD_CONFIG_FILE"
 echo "Done."
 
 echo ""
