@@ -1,28 +1,29 @@
 FROM busybox as base
 WORKDIR /fs-root
-COPY ./scripts/seed-config.sh scripts/entrypoint.sh ./
-COPY ./defaults/users ./opt/chrooted-ftp/users
 
-RUN chmod +x seed-config.sh && \
-    chmod +x ./entrypoint.sh
+COPY scripts/entrypoint.sh ./entrypoint
+COPY ./defaults/users ./opt/chrooted-ftp/users
+RUN chmod +x ./entrypoint
 
 FROM alpine:3.16.1 as container
-
 ENV UMASK 022
-
 ENV PASSIVE_MIN_PORT 10090
 ENV PASSIVE_MAX_PORT 10100
+ENV PUBLIC_HOST "localhost"
 
 ENV BANNER "Welcome to chrooted-ftp!"
-ENV PUBLIC_HOST "localhost"
 
 EXPOSE 21
 EXPOSE 10090-10100
+EXPOSE 2022
+
+VOLUME [ "/opt/chrooted-ftp" ]
 
 RUN apk add --no-cache \
     vsftpd \
-    openssh
+    openssh \
+    tini
 
 COPY --from=base /fs-root /
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["tini", "--", "/entrypoint"]
