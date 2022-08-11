@@ -82,6 +82,10 @@ You can further configure the ftp server using the following environment variabl
 | PUBLIC_HOST      | Public host                                        |
 | UMASK            | customize the ftp umask (default 022 => chmod 777) |
 
+### SFTP
+
+> For SFTP there is currently no further configuration possible and necessary.
+
 ### General settings
 
 | Variable    | Usage                                         |
