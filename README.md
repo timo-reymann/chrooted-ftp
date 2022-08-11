@@ -96,7 +96,19 @@ You can further configure the ftp server using the following environment variabl
 
 > You must take care of opening/mapping the ports via docker to match your docker configuration.
 
-For reference see the docker-compose example file above.
+Default ports are:
+
+| Port        | Protocol    |
+|:------------|:------------|
+| 21          | Active FTP  |
+| 10090-10100 | Passive FTP |
+| 2022        | SFTP        |
+
+I recommend exposing them as they are to the host, but you can also change them on the host.
+
+See [docker docs](https://docs.docker.com/config/containers/container-networking/#published-ports) for more information.
+
+For example usage, see the docker-compose example file above.
 
 # Under the hood
 
