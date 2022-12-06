@@ -39,7 +39,7 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: timoreymann/${{ env.DOCKER_REPO }}
           short-description: ${{ github.event.repository.description }}
       - name: Build and push image
