@@ -5,7 +5,7 @@ COPY scripts/entrypoint.sh ./entrypoint
 COPY ./defaults/users ./opt/chrooted-ftp/users
 RUN chmod +x ./entrypoint
 
-FROM alpine:3.17.0 as container
+FROM alpine:3.17.1 as container
 ENV UMASK 022
 ENV PASSIVE_MIN_PORT 10090
 ENV PASSIVE_MAX_PORT 10100
