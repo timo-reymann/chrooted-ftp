@@ -65,23 +65,23 @@ configure_vsftpd() {
 
     log "FTP" "Append custom config to vsftpd config"
     cat <<EOF >> $VSFTPD_CONFIG_FILE
-        allow_writeable_chroot=YES
-        chroot_local_user=YES
-        ftpd_banner=${BANNER}
-        listen_ipv6=NO
-        local_enable=YES
-        local_root=${DATA_FOLDER}/\$USER/data
-        local_umask=${UMASK}
-        passwd_chroot_enable=YES
-        pasv_enable=YES
-        pasv_max_port=${PASSIVE_MAX_PORT}
-        pasv_min_port=${PASSIVE_MIN_PORT}
-        pasv_addr_resolve=NO
-        pasv_address=${PUBLIC_HOST}
-        seccomp_sandbox=NO
-        user_sub_token=\$USER
-        vsftpd_log_file=$(tty)
-        write_enable=YES
+allow_writeable_chroot=YES
+chroot_local_user=YES
+ftpd_banner=${BANNER}
+listen_ipv6=NO
+local_enable=YES
+local_root=${DATA_FOLDER}/\$USER/data
+local_umask=${UMASK}
+passwd_chroot_enable=YES
+pasv_enable=YES
+pasv_max_port=${PASSIVE_MAX_PORT}
+pasv_min_port=${PASSIVE_MIN_PORT}
+pasv_addr_resolve=NO
+pasv_address=${PUBLIC_HOST}
+seccomp_sandbox=NO
+user_sub_token=\$USER
+vsftpd_log_file=$(tty)
+write_enable=YES
 EOF
 
     log "FTP" "Disable anonymous login"
@@ -107,27 +107,27 @@ configure_sftp() {
 
     log "SFTP" "Configure OpenSSH-Server"
     cat << EOF > /etc/ssh/sshd_config
-    AllowTcpForwarding      no
-    Banner                  /etc/ssh/banner
-    ForceCommand            internal-sftp
-    ChrootDirectory         ${DATA_FOLDER}/%u
-    GatewayPorts            no
-    HostbasedAuthentication no
-    HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_dsa_key
-    HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ecdsa_key
-    HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ed25519_key
-    HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_rsa_key
-    IgnoreUserKnownHosts    yes
-    LogLevel                INFO
-    PasswordAuthentication  yes
-    PermitEmptyPasswords    no
-    PermitTTY               no
-    PermitTunnel            no
-    Port                    2022
-    PubkeyAuthentication    no
-    Subsystem               sftp    /usr/lib/ssh/internal-sftp r -d /data
-    UseDNS                  no
-    X11Forwarding           no
+AllowTcpForwarding      no
+Banner                  /etc/ssh/banner
+ForceCommand            internal-sftp
+ChrootDirectory         ${DATA_FOLDER}/%u
+GatewayPorts            no
+HostbasedAuthentication no
+HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_dsa_key
+HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ecdsa_key
+HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ed25519_key
+HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_rsa_key
+IgnoreUserKnownHosts    yes
+LogLevel                INFO
+PasswordAuthentication  yes
+PermitEmptyPasswords    no
+PermitTTY               no
+PermitTunnel            no
+Port                    2022
+PubkeyAuthentication    no
+Subsystem               sftp    /usr/lib/ssh/internal-sftp r -d /data
+UseDNS                  no
+X11Forwarding           no
 EOF
 
 }
