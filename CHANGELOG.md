@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/timo-reymann/chrooted-ftp/compare/2.0.3...2.0.4) (2023-09-04)
+
+
+### Bug Fixes
+
+* **#27:** Add indentation to config files ([#28](https://github.com/timo-reymann/chrooted-ftp/issues/28)) ([988be70](https://github.com/timo-reymann/chrooted-ftp/commit/988be7066aed0337f7b54fcea44242a077f5a311)), closes [#27](https://github.com/timo-reymann/chrooted-ftp/issues/27)
+
 ## [2.0.3](https://github.com/timo-reymann/chrooted-ftp/compare/2.0.2...2.0.3) (2023-06-15)
 
 
