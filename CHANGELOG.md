@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.2...3.0.3) (2023-09-08)
+
+
+### Bug Fixes
+
+* Wait a while until deleting busybox ([fc8fad0](https://github.com/timo-reymann/chrooted-ftp/commit/fc8fad0d7035d462cc601a80da04f926d53a8e94))
+
 ## [3.0.2](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.1...3.0.2) (2023-09-08)
 
 
