@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.3...3.0.4) (2023-09-08)
+
+
+### Bug Fixes
+
+* Fix commented out line for preventing anonymous login ([e1b37d1](https://github.com/timo-reymann/chrooted-ftp/commit/e1b37d1b9013b47712ca1a252628e90a43822205))
+
 ## [3.0.3](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.2...3.0.3) (2023-09-08)
 
 
