@@ -1,3 +1,11 @@
+## [3.0.1](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.0...3.0.1) (2023-09-08)
+
+
+### Bug Fixes
+
+* **deps:** update alpine docker tag to v3.18.3 ([#31](https://github.com/timo-reymann/chrooted-ftp/issues/31)) ([976a7cc](https://github.com/timo-reymann/chrooted-ftp/commit/976a7ccf1e09df198e8ec1d6f3860f26c36a19f3))
+* Fix indent ([16b4c7c](https://github.com/timo-reymann/chrooted-ftp/commit/16b4c7c6082e007b971f95aba7ea88214204b345))
+
 ## [3.0.0](https://github.com/timo-reymann/chrooted-ftp/compare/2.0.4...3.0.0) (2023-09-08)
 
 
