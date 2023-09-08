@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BINS_TO_KEEP=" echo cat grep rm busybox ls mkdir sed mv ssh-keygen sh date tty chown passwd false cut tini "
+BINS_TO_KEEP=" echo cat grep rm busybox ls mkdir sed mv ssh-keygen sh date tty chown passwd false cut tini sleep "
 SBINS_TO_KEEP=" adduser sshd vsftpd tini "
 
 for f in $(ls /bin /usr/bin)

@@ -140,9 +140,7 @@ configure_sftp
 log "GENERAL" "Setup completed."
 
 
-(log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) &
-(log "SFTP" "Started" && /usr/sbin/sshd -D -e) &
-
-log "GENERAL" "Nuke busybox ..." &
-rm /bin/busybox & 
+(log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) & \
+(log "SFTP" "Started" && /usr/sbin/sshd -D -e) & \
+(log "GENERAL" "Nuke busybox ..."  && sleep 10 && rm /bin/busybox) & 
 wait
