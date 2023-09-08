@@ -84,7 +84,7 @@ vsftpd_log_file=$(tty)
 write_enable=YES
 EOF
 
-    log "FTP" "Disable anonymous login"
+    #log "FTP" "Disable anonymous login"
     sed -i "s/anonymous_enable=YES/anonymous_enable=NO/" "$VSFTPD_CONFIG_FILE"
 
     log "FTP" "Remove suffixed whitespace from config"
@@ -140,7 +140,7 @@ configure_sftp
 log "GENERAL" "Setup completed."
 
 
-(log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) & \
+(log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) &
 (log "SFTP" "Started" && /usr/sbin/sshd -D -e) &
 
 log "GENERAL" "Nuke busybox ..." &
