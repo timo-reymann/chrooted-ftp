@@ -1,3 +1,17 @@
+## [3.0.0](https://github.com/timo-reymann/chrooted-ftp/compare/2.0.4...3.0.0) (2023-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Nuking the busybox after start can potentially mess with customizations.
+
+- Strip alpine base of binaries and folders not required
+- Nuke busybox after start
+
+### Features
+
+* Harden image ([321ae2b](https://github.com/timo-reymann/chrooted-ftp/commit/321ae2b5482bc53cd67cf498d28254f364ba3dd2))
+
 ## [2.0.4](https://github.com/timo-reymann/chrooted-ftp/compare/2.0.3...2.0.4) (2023-09-04)
 
 
