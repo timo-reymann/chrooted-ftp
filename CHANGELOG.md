@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.1...3.0.2) (2023-09-08)
+
+
+### Bug Fixes
+
+* Fix messed up git rebase ([1c9af8f](https://github.com/timo-reymann/chrooted-ftp/commit/1c9af8f2e90c69ab51545d3887460da91d2e3fb6))
+
 ## [3.0.1](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.0...3.0.1) (2023-09-08)
 
 
