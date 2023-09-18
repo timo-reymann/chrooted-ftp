@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.4...3.1.0) (2023-09-18)
+
+
+### Features
+
+* **#32:** Add user config ftp directory suffix/postfix ([#33](https://github.com/timo-reymann/chrooted-ftp/issues/33)) ([491947a](https://github.com/timo-reymann/chrooted-ftp/commit/491947a51a89f15f552f847852414ddb00eb8aee)), closes [#32](https://github.com/timo-reymann/chrooted-ftp/issues/32) [#32](https://github.com/timo-reymann/chrooted-ftp/issues/32)
+
 ## [3.0.4](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.3...3.0.4) (2023-09-08)
 
 
