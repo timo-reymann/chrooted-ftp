@@ -1,6 +1,10 @@
 #!/bin/sh
 ROOT_FOLDER="/opt/chrooted-ftp"
 DATA_FOLDER="/data"
+if [ -n "${NO_USER_FTP_POSTFIX}" ]
+then
+    USER_FTP_POSTFIX=
+fi
 
 log() {
     component="$1"
@@ -34,8 +38,8 @@ create_user() {
 
       log "SFTP" "Prepare file structure for ${username}"
       chown root:root "${DATA_FOLDER}/$username"
-      mkdir -p "${DATA_FOLDER}/$username/data"
-      chown $username "${DATA_FOLDER}/$username/data"
+      mkdir -p "${DATA_FOLDER}/$username${USER_FTP_POSTFIX}"
+      chown $username "${DATA_FOLDER}/$username${USER_FTP_POSTFIX}"
     fi
 }
 
@@ -70,7 +74,7 @@ chroot_local_user=YES
 ftpd_banner=${BANNER}
 listen_ipv6=NO
 local_enable=YES
-local_root=${DATA_FOLDER}/\$USER/data
+local_root=${DATA_FOLDER}/\$USER${USER_FTP_POSTFIX}
 local_umask=${UMASK}
 passwd_chroot_enable=YES
 pasv_enable=YES

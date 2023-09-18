@@ -40,6 +40,11 @@ services:
     image: timoreymann/chrooted-ftp
     environment:
       - "BANNER=Welcome to my dockerized FTP!"
+    # USER_FTP_POSTFIX determines the ftp directory inside user home directory and defaults to /data if not set
+    # If NO_USER_FTP_POSTFIX is set, USER_FTP_POSTFIX is disabled and the user home directory is exposed over ftp
+    # - USER_FTP_POSTFIX=/data
+    # - NO_USER_FTP_POSTFIX=true
+
     # - PUBLIC_HOST=custom-host.domain.tld # optional and only used for passive ftp, defaults to localhost
     ports:
       # active ftp
@@ -73,12 +78,15 @@ file.
 
 You can further configure the ftp server using the following environment variables:
 
-| Variable         | Usage                                              |
-|:-----------------|:---------------------------------------------------|
-| PASSIVE_MIN_PORT | Minimum used passive port                          |
-| PASSIVE_MAX_PORT | Maximum used passive port                          |
-| PUBLIC_HOST      | Public host                                        |
-| UMASK            | customize the ftp umask (default 022 => chmod 777) |
+| Variable            | Usage                                                       |
+|:--------------------|:------------------------------------------------------------|
+| PASSIVE_MIN_PORT    | Minimum used passive port                                   |
+| PASSIVE_MAX_PORT    | Maximum used passive port                                   |
+| PUBLIC_HOST         | Public host                                                 |
+| UMASK               | customize the ftp umask (default 022 => chmod 777)          |
+| USER_FTP_POSTFIX    | Override the path exposed over ftp, defaults to /data       |
+| NO_USER_FTP_POSTFIX | Disable USER_FTP_POSTFIX, ftp access to user home directory |
+
 
 #### SFTP
 
@@ -133,7 +141,7 @@ To make it work with both, the structure is like this:
 ```text
 /data           | user root
     <user>      | Home folder, owned by root:root
-        /data   | Data folder, owned by <user>
+        /data   | Data folder, owned by <user> - override with USER_FTP_POSTFIX (or disable with NO_USER_FTP_POSTFIX)
 ```
 
 This structure allows FTP to acess the data directly, while via SFTP you need to prepend the path /data
