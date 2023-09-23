@@ -1,3 +1,10 @@
+## [3.2.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.1.0...3.2.0) (2023-09-23)
+
+
+### Features
+
+* **#34:** Add account creation via env vars ([2f9ed2f](https://github.com/timo-reymann/chrooted-ftp/commit/2f9ed2f6d25dc30333f4d7e987bf903a730a8295)), closes [#34](https://github.com/timo-reymann/chrooted-ftp/issues/34)
+
 ## [3.1.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.0.4...3.1.0) (2023-09-18)
 
 
