@@ -74,6 +74,9 @@ The syntax is `username:password`, once per line.
 There is also the default user `bob` with password `s3cr3tCand!`. This user is gone at the moment you mount the users
 file.
 
+If using files is not your thing you can also create users with env vars, see the list in [General settings](#general-settings) for more information.
+Both can be used togehter, so you can use env vars and/or file-based user creation.
+
 #### FTP
 
 You can further configure the ftp server using the following environment variables:
@@ -94,9 +97,10 @@ You can further configure the ftp server using the following environment variabl
 
 #### General settings
 
-| Variable    | Usage                                         |
-|:------------|:----------------------------------------------|
-| BANNER      | Banner displayed at connect using SFTP or FTP |
+| Variable           | Usage                                                                                                      |
+|:-------------------|:-----------------------------------------------------------------------------------------------------------|
+| BANNER             | Banner displayed at connect using SFTP or FTP                                                              |
+| ACCOUNT_<username> | Set the value to the password to set for <username>, this will create a user to be used with SFTP and FTP. |
 
 #### Ports
 
