@@ -7,8 +7,8 @@ then
 fi
 
 log() {
-    component="$1"
-    message="$2"
+    local component="$1"
+    local message="$2"
     echo -e "[\033[1;36m$(printf '%-7s' "${component}")\033[0m] \033[1;35m$(date +'%Y-%m-%dT%H:%M:%S')\033[0m ${message}"
 }
 
@@ -25,8 +25,8 @@ user_exists() {
 
 # Create user and setup directory structure
 create_user() {
-    username="$1"
-    password="$2"
+    local username="$1"
+    local password="$2"
 
     if [ $(user_exists $username) -eq 1 ];
     then
@@ -45,15 +45,26 @@ create_user() {
 
 # Read line by line from users file
 create_users_from_config() {
-while IFS= read -r line
-do
-  if [ -z $line ];
-  then
-    continue;
-  fi
+  while IFS= read -r line
+  do
+    if [ -z $line ];
+    then
+      continue;
+    fi
 
-  create_user "$(echo "$line" | cut -d ':' -f1)" "$(echo "$line" | cut -d ':' -f2)"
-done < "$ROOT_FOLDER/users"
+    create_user "$(echo "$line" | cut -d ':' -f1)" "$(echo "$line" | cut -d ':' -f2)"
+  done < "$ROOT_FOLDER/users"
+}
+
+# Create users from env vars
+create_users_from_env() {
+  local users="$(env | grep ACCOUNT_)"
+  for user_spec in $users; do
+    local username="$(echo "$user_spec" | cut -d '=' -f1 | cut -d '_' -f2)"
+    local password="$(echo "$user_spec" | cut -d '=' -f2)"
+    
+    create_user "${username}" "${password}"
+  done
 }
 
 # Create root data folder
@@ -102,7 +113,7 @@ configure_sftp() {
     then
         mkdir -p "${ROOT_FOLDER}/ssh_hostkeys"
         log "SFTP" "Create host keys"
-        ssh-keygen -A > /dev/null
+        ssh-keygen -A >/dev/null
         mv /etc/ssh/ssh_host_* "${ROOT_FOLDER}/ssh_hostkeys/"
     fi
 
@@ -138,6 +149,7 @@ EOF
 
 create_data_folder
 create_users_from_config
+create_users_from_env
 configure_vsftpd
 configure_sftp
 
