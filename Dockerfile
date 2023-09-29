@@ -1,4 +1,4 @@
-FROM alpine:3.18.3 as base_system
+FROM alpine:3.18.4 as base_system
 # Install packages
 RUN apk add --no-cache \
     vsftpd \
