@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/timo-reymann/chrooted-ftp/compare/3.3.1...3.3.2) (2023-12-08)
+
+
+### Bug Fixes
+
+* **deps:** update alpine docker tag to v3.19.0 ([#37](https://github.com/timo-reymann/chrooted-ftp/issues/37)) ([aebe135](https://github.com/timo-reymann/chrooted-ftp/commit/aebe135a9c5cecccc7588986d4dffa340d11a719))
+
 ## [3.3.1](https://github.com/timo-reymann/chrooted-ftp/compare/3.3.0...3.3.1) (2023-12-01)
 
 
