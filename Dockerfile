@@ -1,9 +1,16 @@
-FROM alpine:3.20.1 as base_system
+FROM alpine:3.20.1 AS base_system
 # Install packages
+# renovate: datasource=repology depName=alpine_3_20/openssh versioning=loose
+ARG openssh_version=9.7_p1-r4
+# renovate: datasource=repology depName=alpine_3_20/vsftpd versioning=loose
+ARG vsftpd_version=3.0.5-r2
+# renovate: datasource=repology depName=alpine_3_20/tini versioning=loose
+ARG tini_version=0.19.0-r3
+
 RUN apk add --no-cache \
-    vsftpd \
-    openssh \
-    tini && \
+    vsftpd=${vsftpd_version} \
+    openssh=${openssh_version} \
+    tini=${tini_version} && \
     rm -rf /etc/apk
 
 # Copy over utils
@@ -29,11 +36,11 @@ LABEL org.opencontainers.image.source="https://github.com/timo-reymann/chrooted-
 
 COPY --from=base_system / /
 
-ENV UMASK 022
-ENV PASSIVE_MIN_PORT 10090
-ENV PASSIVE_MAX_PORT 10100
-ENV PUBLIC_HOST "localhost"
-ENV BANNER "Welcome to chrooted-ftp!"
+ENV UMASK=022
+ENV PASSIVE_MIN_PORT=10090
+ENV PASSIVE_MAX_PORT=10100
+ENV PUBLIC_HOST="localhost"
+ENV BANNER="Welcome to chrooted-ftp!"
 ENV USER_FTP_POSTFIX=/data
 ENV NO_USER_FTP_POSTFIX=
 
@@ -44,3 +51,4 @@ EXPOSE 2022
 VOLUME [ "/opt/chrooted-ftp" ]
 
 ENTRYPOINT ["tini", "--", "/entrypoint"]
+
