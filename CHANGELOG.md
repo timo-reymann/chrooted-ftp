@@ -1,3 +1,10 @@
+## [3.4.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.3.4...3.4.0) (2024-07-08)
+
+
+### Features
+
+* Pin package versions ([ee6a8e7](https://github.com/timo-reymann/chrooted-ftp/commit/ee6a8e71e0e4652e5f4ffb76c0e1a0947f11b80a))
+
 ## [3.3.4](https://github.com/timo-reymann/chrooted-ftp/compare/3.3.3...3.3.4) (2024-05-22)
 
 
