@@ -6,3 +6,6 @@ dependencies = [
     "testcontainers==4.7.*",
     "paramiko==3.4.*"
 ]
+
+[tool.setuptools.package-dir]
+tests = "."
