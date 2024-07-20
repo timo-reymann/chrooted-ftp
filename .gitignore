@@ -1,1 +1,5 @@
 .idea/
+pyvenv.cfg
+.venv/
+bin/
+lib/
