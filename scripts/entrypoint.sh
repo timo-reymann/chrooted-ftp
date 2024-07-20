@@ -92,6 +92,7 @@ pasv_enable=YES
 pasv_max_port=${PASSIVE_MAX_PORT}
 pasv_min_port=${PASSIVE_MIN_PORT}
 pasv_addr_resolve=NO
+pasv_promiscuous=${PASSIVE_PROMISCUOUS}
 pasv_address=${PUBLIC_HOST}
 seccomp_sandbox=NO
 user_sub_token=\$USER

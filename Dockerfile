@@ -34,9 +34,10 @@ LABEL org.opencontainers.image.source="https://github.com/timo-reymann/chrooted-
 COPY --from=base_system / /
 
 ENV UMASK=022
+ENV PASSIVE_PROMISCUOUS="no"
 ENV PASSIVE_MIN_PORT=10090
 ENV PASSIVE_MAX_PORT=10100
-ENV PUBLIC_HOST="localhost"
+ENV PUBLIC_HOST="127.0.0.1"
 ENV BANNER="Welcome to chrooted-ftp!"
 ENV USER_FTP_POSTFIX=/data
 ENV NO_USER_FTP_POSTFIX=
