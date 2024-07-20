@@ -1,3 +1,10 @@
+## [3.6.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.5.0...3.6.0) (2024-07-20)
+
+
+### Features
+
+* Replace tini with multirun ([cdec273](https://github.com/timo-reymann/chrooted-ftp/commit/cdec273e82a68ee1c185f0f3b69f67e17d0cb102))
+
 ## [3.5.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.4.0...3.5.0) (2024-07-20)
 
 
