@@ -1,22 +1,24 @@
 FROM alpine:3.20.1 AS base_system
+
 # Install packages
 # renovate: datasource=repology depName=alpine_3_20/openssh versioning=loose
 ARG openssh_version=9.7_p1-r4
+
 # renovate: datasource=repology depName=alpine_3_20/vsftpd versioning=loose
 ARG vsftpd_version=3.0.5-r2
+
 # renovate: datasource=repology depName=alpine_3_20/tini versioning=loose
 ARG tini_version=0.19.0-r3
 
 RUN apk add --no-cache \
     vsftpd=${vsftpd_version} \
     openssh=${openssh_version} \
-    tini=${tini_version} && \
-    rm -rf /etc/apk
+    tini=${tini_version} \
+    && rm -rf /etc/apk
 
 # Copy over utils
 COPY scripts/entrypoint.sh ./entrypoint
 COPY ./defaults/users ./opt/chrooted-ftp/users
-
 
 FROM scratch
 LABEL org.opencontainers.image.title="chrooted-ftp"
@@ -46,4 +48,3 @@ EXPOSE 2022
 VOLUME [ "/opt/chrooted-ftp" ]
 
 ENTRYPOINT ["tini", "--", "/entrypoint"]
-
