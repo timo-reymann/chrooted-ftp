@@ -1,0 +1,8 @@
+[project]
+name = "chrooted-ftp-tests"
+version = "0.0.0"
+dependencies = [
+    "pytest==8.2.*",
+    "testcontainers==4.7.*",
+    "paramiko==3.4.*"
+]
