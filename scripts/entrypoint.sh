@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 ROOT_FOLDER="/opt/chrooted-ftp"
 DATA_FOLDER="/data"
 if [ -n "${NO_USER_FTP_POSTFIX}" ]
@@ -155,9 +155,7 @@ configure_vsftpd
 configure_sftp
 
 log "GENERAL" "Setup completed."
+log "VSFTPD" "Starting"
+log "SFTP" "Starting"
 
-
-(log "VSFTPD" "Started" && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf) & \
-(log "SFTP" "Started" && /usr/sbin/sshd -D -e) & \
-(log "GENERAL" "Nuke busybox ..."  && sleep 10 && rm /bin/busybox) & 
-wait
+exec multirun "/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf" "/usr/sbin/sshd -D -e"
