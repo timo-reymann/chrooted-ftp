@@ -5,6 +5,7 @@ import paramiko
 import pytest
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.image import DockerImage
+from testcontainers.core.waiting_utils import wait_for_logs
 
 
 @pytest.fixture(scope="session")
@@ -23,8 +24,9 @@ def chrooted_ftp_test_container(docker_image) -> DockerContainer:
     return container
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def create_ftp_connection():
+
     def impl(port: str | int, username: str, password: str):
         ftp = FTP()
         ftp.connect(host="localhost", port=int(port))
@@ -34,18 +36,18 @@ def create_ftp_connection():
     return impl
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def create_sftp_connection():
-    def impl(host, port, username, password):
+    def impl(port, username, password) -> paramiko.SFTPClient:
         ssh_client = paramiko.SSHClient()
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh_client.connect(host, port, username, password)
+        ssh_client.connect("localhost", port, username, password)
         return ssh_client.open_sftp()
 
     return impl
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def verify_login(create_ftp_connection, create_sftp_connection):
     def impl(chrooted_ftp_test_container, connection_type, password, username):
         if connection_type == "ftp":
@@ -54,8 +56,16 @@ def verify_login(create_ftp_connection, create_sftp_connection):
             assert ftp.getwelcome() is not None
         elif connection_type == "sftp":
             sftp_port = chrooted_ftp_test_container.get_exposed_port(2022)
-            sftp = create_sftp_connection("localhost", sftp_port, username, password)
+            sftp = create_sftp_connection(sftp_port, username, password)
             result = sftp.listdir()
             assert result is not None
+
+    return impl
+
+
+@pytest.fixture(scope="session")
+def wait_for_container_to_be_started():
+    def impl(container):
+        wait_for_logs(container, "Server listening on :: port 2022")
 
     return impl
