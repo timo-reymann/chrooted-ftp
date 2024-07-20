@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.image import DockerImage
@@ -5,7 +7,8 @@ from testcontainers.core.image import DockerImage
 
 @pytest.fixture(scope="session")
 def docker_image():
-    image = DockerImage(path="..", tag="timoreymann/chrooted-ftp:local-test-image")
+
+    image = DockerImage(path=Path(__file__).parent.parent, tag="timoreymann/chrooted-ftp:local-test-image")
     image.build()
     return image
 
