@@ -1,3 +1,10 @@
+## [3.5.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.4.0...3.5.0) (2024-07-20)
+
+
+### Features
+
+* Dont purge the container by default ([053500c](https://github.com/timo-reymann/chrooted-ftp/commit/053500c2cd85716823abb234c112770ac8043497))
+
 ## [3.4.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.3.4...3.4.0) (2024-07-08)
 
 
