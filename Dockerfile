@@ -15,13 +15,8 @@ RUN apk add --no-cache \
 
 # Copy over utils
 COPY scripts/entrypoint.sh ./entrypoint
-COPY scripts/purge.sh /purge-bins
 COPY ./defaults/users ./opt/chrooted-ftp/users
 
-RUN /purge-bins && \
-    rm -rf /*/apk && \
-    rm /lib/libapk* && \
-    rm -rf /media /mnt
 
 FROM scratch
 LABEL org.opencontainers.image.title="chrooted-ftp"
