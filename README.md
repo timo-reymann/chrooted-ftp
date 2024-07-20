@@ -11,6 +11,7 @@ chrooted-ftp
 </p>
 
 ## Features
+
 - slim FTP server
 - SFTP support
 - support for passive mode
@@ -19,20 +20,24 @@ chrooted-ftp
 ## Usage
 
 ### Prepare
+
 1. Add user entry in form username:password into a file mounted under `/opt/chrooted-ftp/users`.
 2. Mount the desired host volume under `/data/username`
 3. Fire up the server.
 
 ### Usage with FTP
+
 1. Expose port `21` (also see the sample docker-compose)
 2. Your user can connect to the ftp server, only seeing their files
 
 ### Usage with SFTP
+
 1. Expose port `2022` (also see the sample docker-compose)
 2. If you want to keep the host keys across restarts make sure to mount `/opt/chrooted-ftp/ssh_hostkeys`
 3. Your user can connect to the sftp server on port 2022, the root directory /data contains all files
 
 ### Sample docker-compose
+
 ```yaml
 version: '3.2'
 services:
@@ -74,8 +79,9 @@ The syntax is `username:password`, once per line.
 There is also the default user `bob` with password `s3cr3tCand!`. This user is gone at the moment you mount the users
 file.
 
-If using files is not your thing you can also create users with env vars, see the list in [General settings](#general-settings) for more information.
-Both can be used togehter, so you can use env vars and/or file-based user creation.
+If using files is not your thing you can also create users with env vars, see the list
+in [General settings](#general-settings) for more information.
+Both can be used together, so you can use env vars and/or file-based user creation.
 
 #### FTP
 
@@ -89,7 +95,6 @@ You can further configure the ftp server using the following environment variabl
 | UMASK               | customize the ftp umask (default 022 => chmod 777)          |
 | USER_FTP_POSTFIX    | Override the path exposed over ftp, defaults to /data       |
 | NO_USER_FTP_POSTFIX | Disable USER_FTP_POSTFIX, ftp access to user home directory |
-
 
 #### SFTP
 
@@ -121,12 +126,12 @@ See [docker docs](https://docs.docker.com/config/containers/container-networking
 For example usage, see the docker-compose example file above.
 
 ## Motivation
+
 The problem this container is solving is the following:
 I want to provide ftp for some users, but i dont want to configure the chroot stuff and so on.
 So this container is doing exactly that. You can mount `/data` as your volume the subfolders are per user.
 So you can mount for example a website for a user under `/data/bob` and your host volume
 is `/var/www/bobs.homepage.digital`. Its just that simple.
-
 
 # Documentation
 
@@ -151,6 +156,7 @@ To make it work with both, the structure is like this:
 This structure allows FTP to acess the data directly, while via SFTP you need to prepend the path /data
 
 ## Contributing
+
 I love your input! I want to make contributing to this project as easy and transparent as possible, whether it's:
 
 - Reporting a bug
@@ -164,5 +170,6 @@ To get started please read the [Contribution Guidelines](./CONTRIBUTING.md).
 ## Development
 
 ### Requirements
+
 - [Docker](https://docs.docker.com/get-docker/)
 
