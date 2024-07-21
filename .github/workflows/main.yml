@@ -27,7 +27,7 @@ jobs:
     needs:
       - test
     steps:
-      - uses: timo-reymann/docker-semantic-release-gh-action@v1
+      - uses: timo-reymann/docker-semantic-release-gh-action@v2
         with:
           image: timoreymann/chrooted-ftp
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
