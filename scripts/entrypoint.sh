@@ -14,9 +14,7 @@ log() {
 
 # Check if the given user exists
 user_exists() {
-  cat /etc/passwd | grep "$1" >/dev/null 2>&1
-
-  if [ $? -eq 0 ] ; then
+  if grep -q "$1" /etc/passwd; then
     echo 1
   else
     echo 0
@@ -28,7 +26,7 @@ create_user() {
     local username="$1"
     local password="$2"
 
-    if [ $(user_exists $username) -eq 1 ];
+    if [ "$(user_exists "${username}")" -eq 1 ];
     then
         log "GENERAL" "User ${username} already exists, skip creation"
     else
@@ -37,31 +35,41 @@ create_user() {
       echo -e "${password}\n${password}" | passwd "$username" &> /dev/null
 
       log "SFTP" "Prepare file structure for ${username}"
-      chown root:root "${DATA_FOLDER}/$username"
-      mkdir -p "${DATA_FOLDER}/$username${USER_FTP_POSTFIX}"
-      chown $username "${DATA_FOLDER}/$username${USER_FTP_POSTFIX}"
+      local data_path="${DATA_FOLDER}/$username"
+      chown root:root "${data_path}"
+      mkdir -p "${data_path}${USER_FTP_POSTFIX}"
+      chown "${username}" "${data_path}${USER_FTP_POSTFIX}"
     fi
 }
 
 # Read line by line from users file
 create_users_from_config() {
+  local username
+  local password
+
   while IFS= read -r line
   do
-    if [ -z $line ];
+    if [ -z "$line" ];
     then
       continue;
     fi
 
-    create_user "$(echo "$line" | cut -d ':' -f1)" "$(echo "$line" | cut -d ':' -f2)"
+    username="$(echo "$line" | cut -d ':' -f1)"
+    password="$(echo "$line" | cut -d ':' -f2)"
+    create_user "${username}" "${password}"
   done < "$ROOT_FOLDER/users"
 }
 
 # Create users from env vars
 create_users_from_env() {
-  local users="$(env | grep ACCOUNT_)"
+  local users
+  local username
+  local password
+
+  users="$(env | grep ACCOUNT_)"
   for user_spec in $users; do
-    local username="$(echo "$user_spec" | cut -d '=' -f1 | cut -d '_' -f2)"
-    local password="$(echo "$user_spec" | cut -d '=' -f2)"
+    username="$(echo "$user_spec" | cut -d '=' -f1 | cut -d '_' -f2)"
+    password="$(echo "$user_spec" | cut -d '=' -f2)"
     
     create_user "${username}" "${password}"
   done
@@ -97,7 +105,7 @@ seccomp_sandbox=NO
 vsftpd_log_file=$(tty)
 
 # passive mode
-pasv_enable=${PASSIVE_MODE_ENABLED:-'yes'}
+pasv_enable=${PASSIVE_MODE_ENABLED}
 pasv_max_port=${PASSIVE_MAX_PORT}
 pasv_min_port=${PASSIVE_MIN_PORT}
 pasv_addr_resolve=NO
@@ -105,7 +113,7 @@ pasv_promiscuous=${PASSIVE_PROMISCUOUS}
 pasv_address=${PUBLIC_HOST}
 
 # active mode
-connect_from_port_20=${ACTIVE_MODE_ENABLED:-'yes'}
+connect_from_port_20=${ACTIVE_MODE_ENABLED}
 EOF
 
     log "FTP" "Disable anonymous login"
@@ -131,27 +139,36 @@ configure_sftp() {
 
     log "SFTP" "Configure OpenSSH-Server"
     cat << EOF > /etc/ssh/sshd_config
-AllowTcpForwarding      no
+# base
+LogLevel                INFO
+UseDNS                  no
 Banner                  /etc/ssh/banner
-ForceCommand            internal-sftp
-ChrootDirectory         ${DATA_FOLDER}/%u
-GatewayPorts            no
-HostbasedAuthentication no
+
+# host key
 HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_dsa_key
 HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ecdsa_key
 HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_ed25519_key
 HostKey                 /opt/chrooted-ftp/ssh_hostkeys/ssh_host_rsa_key
-IgnoreUserKnownHosts    yes
-LogLevel                INFO
-PasswordAuthentication  yes
-PermitEmptyPasswords    no
-PermitTTY               no
-PermitTunnel            no
-Port                    2022
-PubkeyAuthentication    no
+
+# force sftp only
+ForceCommand            internal-sftp
 Subsystem               sftp    /usr/lib/ssh/internal-sftp r -d /data
-UseDNS                  no
+Port                    2022
+
+# set up password auth and chroot
+ChrootDirectory         ${DATA_FOLDER}/%u
+PermitEmptyPasswords    no
+PasswordAuthentication  yes
+HostbasedAuthentication no
+PubkeyAuthentication    no
+IgnoreUserKnownHosts    yes
+
+# disable features that are not required
 X11Forwarding           no
+AllowTcpForwarding      no
+PermitTunnel            no
+PermitTTY               no
+GatewayPorts            no
 EOF
 
 }
@@ -166,4 +183,4 @@ log "GENERAL" "Setup completed."
 log "VSFTPD" "Starting"
 log "SFTP" "Starting"
 
-exec multirun "/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf" "/usr/sbin/sshd -D -e"
+exec multirun -v "/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf" "/usr/sbin/sshd -D -e"
