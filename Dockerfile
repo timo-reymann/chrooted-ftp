@@ -11,7 +11,26 @@ RUN apk add --no-cache \
     vsftpd=${vsftpd_version} \
     openssh=${openssh_version} \
     multirun \
-    && rm -rf /etc/apk
+    && apk del --no-cache ca-certificates alpine-keys linux-pam \
+    && rm -rf \
+        /var/cache/apk \
+        /var/log \
+        /var/mail \
+        /var/run \
+        /var/spool \
+        /usr/share/man \
+        /etc/apk \
+        /etc/crontabs \
+        /etc/logrotate.d \
+        /lib/apk \
+        /sbin/apk \
+        /media \
+        /mnt \
+        /sbin/ldconfig \
+        /home \
+        /usr/bin/ssh-keyscan \
+        /usr/bin/ssh-copy-id \
+        /usr/bin/ssh-agent
 
 # Copy over utils
 COPY scripts/entrypoint.sh ./entrypoint
@@ -31,6 +50,8 @@ LABEL org.opencontainers.image.source="https://github.com/timo-reymann/chrooted-
 COPY --from=base_system / /
 
 ENV UMASK=022
+ENV ACTIVE_MODE_ENABLED="yes"
+ENV PASSIVE_MODE_ENABLED="yes"
 ENV PASSIVE_PROMISCUOUS="no"
 ENV PASSIVE_MIN_PORT=10090
 ENV PASSIVE_MAX_PORT=10100
