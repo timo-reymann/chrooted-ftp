@@ -49,14 +49,16 @@ services:
     # If NO_USER_FTP_POSTFIX is set, USER_FTP_POSTFIX is disabled and the user home directory is exposed over ftp
     # - USER_FTP_POSTFIX=/data
     # - NO_USER_FTP_POSTFIX=true
-
-    # - PUBLIC_HOST=custom-host.domain.tld # optional and only used for passive ftp, defaults to localhost
+  
+    # optional and only used for passive ftp, defaults to 127.0.0.1
+    # - PUBLIC_HOST=custom-host.domain.tld 
     ports:
-      # active ftp
+      # ftp control
       - "21:21"
-      # passive ftp ports, may differ if you configured them differently
+      # active ftp
+      - "20:20"
+      # passive ftp ports, may differ if you configured them differently with PASSIVE_MIN_PORT_*
       - "10090-10100:10090-10100"
-
       # sftp
       - "2022:2022"
     volumes:
@@ -87,14 +89,16 @@ Both can be used together, so you can use env vars and/or file-based user creati
 
 You can further configure the ftp server using the following environment variables:
 
-| Variable            | Usage                                                       |
-|:--------------------|:------------------------------------------------------------|
-| PASSIVE_MIN_PORT    | Minimum used passive port                                   |
-| PASSIVE_MAX_PORT    | Maximum used passive port                                   |
-| PUBLIC_HOST         | Public host                                                 |
-| UMASK               | customize the ftp umask (default 022 => chmod 777)          |
-| USER_FTP_POSTFIX    | Override the path exposed over ftp, defaults to /data       |
-| NO_USER_FTP_POSTFIX | Disable USER_FTP_POSTFIX, ftp access to user home directory |
+| Variable             | Default   | Usage                                                                                 |
+|:---------------------|:----------|:--------------------------------------------------------------------------------------|
+| PASSIVE_MODE_ENABLED | yes       | Set to `yes` to enable and to `no`to disable passive mode support                     |
+| PASSIVE_MIN_PORT     | 10090     | Minimum used passive port                                                             |
+| PASSIVE_MAX_PORT     | 10100     | Maximum used passive port                                                             |
+| ACTIVE_MODE_ENABLED  | yes       | Set to `yes` to enable and to `no`to disable active mode support                      |
+| PUBLIC_HOST          | 127.0.0.1 | Public host used for passive mode server address                                      |
+| UMASK                | 022       | customize the ftp umask                                                               |
+| USER_FTP_POSTFIX     | *None*    | Override the path exposed over ftp, defaults to /data                                 |
+| NO_USER_FTP_POSTFIX  | *None*    | Disable `USER_FTP_POSTFIX` by setting to any value, ftp access to user home directory |
 
 #### SFTP
 
@@ -102,10 +106,10 @@ You can further configure the ftp server using the following environment variabl
 
 #### General settings
 
-| Variable           | Usage                                                                                                      |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------|
-| BANNER             | Banner displayed at connect using SFTP or FTP                                                              |
-| ACCOUNT_<username> | Set the value to the password to set for <username>, this will create a user to be used with SFTP and FTP. |
+| Variable             | Usage                                                                                                        |
+|:---------------------|:-------------------------------------------------------------------------------------------------------------|
+| BANNER               | Banner displayed at connect using SFTP or FTP                                                                |
+| ACCOUNT_`{username}` | Set the value to the password to set for `{username}`, this will create a user to be used with SFTP and FTP. |
 
 #### Ports
 
@@ -115,7 +119,8 @@ Default ports are:
 
 | Port        | Protocol    |
 |:------------|:------------|
-| 21          | Active FTP  |
+| 20          | Active FTP  |
+| 21          | FTP control |
 | 10090-10100 | Passive FTP |
 | 2022        | SFTP        |
 

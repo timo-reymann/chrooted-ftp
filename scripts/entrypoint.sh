@@ -80,24 +80,32 @@ configure_vsftpd() {
 
     log "FTP" "Append custom config to vsftpd config"
     cat <<EOF >> $VSFTPD_CONFIG_FILE
+# chroot
 allow_writeable_chroot=YES
 chroot_local_user=YES
-ftpd_banner=${BANNER}
-listen_ipv6=NO
+passwd_chroot_enable=YES
 local_enable=YES
 local_root=${DATA_FOLDER}/\$USER${USER_FTP_POSTFIX}
 local_umask=${UMASK}
-passwd_chroot_enable=YES
-pasv_enable=YES
+user_sub_token=\$USER
+
+# general
+ftpd_banner=${BANNER}
+listen_ipv6=NO
+write_enable=YES
+seccomp_sandbox=NO
+vsftpd_log_file=$(tty)
+
+# passive mode
+pasv_enable=${PASSIVE_MODE_ENABLED:-'yes'}
 pasv_max_port=${PASSIVE_MAX_PORT}
 pasv_min_port=${PASSIVE_MIN_PORT}
 pasv_addr_resolve=NO
 pasv_promiscuous=${PASSIVE_PROMISCUOUS}
 pasv_address=${PUBLIC_HOST}
-seccomp_sandbox=NO
-user_sub_token=\$USER
-vsftpd_log_file=$(tty)
-write_enable=YES
+
+# active mode
+connect_from_port_20=${ACTIVE_MODE_ENABLED:-'yes'}
 EOF
 
     log "FTP" "Disable anonymous login"

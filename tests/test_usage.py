@@ -1,6 +1,8 @@
 from io import BytesIO
 from tempfile import NamedTemporaryFile
 
+import pytest
+
 
 def test_crud_sftp(
         chrooted_ftp_test_container,
@@ -38,7 +40,8 @@ def test_crud_sftp(
         assert [] == connection.listdir("/data")
 
 
-def test_crud_ftp(chrooted_ftp_test_container, create_ftp_connection, wait_for_container_to_be_started):
+@pytest.mark.parametrize("is_active", [True, False])
+def test_crud_ftp(chrooted_ftp_test_container, create_ftp_connection, wait_for_container_to_be_started, is_active):
     # Create account to use in test
     chrooted_ftp_test_container.with_env("ACCOUNT_pytest", "test")
 
@@ -51,6 +54,8 @@ def test_crud_ftp(chrooted_ftp_test_container, create_ftp_connection, wait_for_c
     with chrooted_ftp_test_container:
         wait_for_container_to_be_started(chrooted_ftp_test_container)
         connection = create_ftp_connection(chrooted_ftp_test_container.get_exposed_port(21), "pytest", "test")
+        if not is_active:
+            connection.makepasv()
 
         # Create file
         connection.storlines("STOR test.txt", BytesIO(b'test'))
