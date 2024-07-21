@@ -1,3 +1,9 @@
+## [3.8.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.7.0...3.8.0) (2024-07-21)
+
+### Features
+
+* Add support for ARM images ([9717e76](https://github.com/timo-reymann/chrooted-ftp/commit/9717e76fdf48b335995b9e74fd8c55c375a6bb98))
+
 ## [3.7.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.6.0...3.7.0) (2024-07-21)
 
 
