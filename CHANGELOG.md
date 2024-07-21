@@ -1,3 +1,11 @@
+## [3.7.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.6.0...3.7.0) (2024-07-21)
+
+
+### Features
+
+* Add support for active mode ([b086bc2](https://github.com/timo-reymann/chrooted-ftp/commit/b086bc2595aef46875c3fe100e5958fc5b67c779))
+* Slim down file system for container ([c8278ea](https://github.com/timo-reymann/chrooted-ftp/commit/c8278ea891ef666bb3c96b48854f136f532abac0))
+
 ## [3.6.0](https://github.com/timo-reymann/chrooted-ftp/compare/3.5.0...3.6.0) (2024-07-20)
 
 
