@@ -1,4 +1,4 @@
-FROM alpine:3.21.1 AS base_system
+FROM alpine:3.21.2 AS base_system
 
 # Install packages
 # renovate: datasource=repology depName=alpine_3_20/openssh versioning=loose
