@@ -2,7 +2,7 @@ FROM alpine:3.21.3 AS base_system
 
 # Install packages
 # renovate: datasource=repology depName=alpine_3_20/openssh versioning=loose
-ARG openssh_version=9.7_p1-r4
+ARG openssh_version=9.7_p1-r5
 
 # renovate: datasource=repology depName=alpine_3_20/vsftpd versioning=loose
 ARG vsftpd_version=3.0.5-r2
